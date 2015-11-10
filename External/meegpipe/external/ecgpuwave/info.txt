@@ -1,0 +1,66 @@
+Information about the programs for detecting the waves of the QRS complex
+
+The main function is limits.m :
+
+Input parameters: 
+o	dirhea: directory where the signal header file is
+o	dirsig: directory where the signal data file is
+o	dirann: directory where the signal annotation file is
+o	ecgnr: name of the signal
+o	anot: name of the annotation file (if the annotator used is Aristotle anot=’ari’)
+o	typerec: type of signal format (0=MIT format, 1=Lund format)
+
+The former input parameters are obliged, the following input parameters are optional, if they are not given, default values are given inside the program:
+
+o	res: results format (0=structure, 1=text), (default value, res=0)
+o	nl: number corresponding to the processing lead, (nl=1)
+o	ti: beginning of the processing, (ti=’0:00’)
+o	tf: end of the processing, (tf=’end’)
+o	nbo_flag: rejection of non-normal beats, (0=not applied, 1=applied), (nbo_flag=0)
+o	Kq: threshold for Q wave beginning, (Kq=1.5)
+o	Kr : threshold for R wave beginning and end, (Kr=5)
+o	Ks: threshold for S wave end, (Ks=3)
+o	Krr: threshold for R’ wave end in case of QRS complexes with RSR’ morphology, (Krr=5)
+o	Kpb: threshold for P wave beginning, (Kpb=1.35)
+o	Kpe: threshold for P wave end, (Kpe=2)
+o	Ktb: threshold for T wave beginning, (Ktb=2)
+o	Kte: threshold for T wave end, (Kte=3.5)
+o	pco: threshold for T wave morphology classification, (pco=8)
+
+Output parameters: 
+o	banot: structure with the annotations
+§	banot.time: position of the annotation (in samples)
+§	banot.anntyp: type of annotation: ‘(’ :wave beginning, ‘)’: wave end, ‘p’: P peak, ‘N’: position of the QRS given by Aristotle, ‘Q’: Q peak, ‘R’: R peak, ‘S’: S peak, ‘t’: T peak
+§	banot.subtyp: reserved field
+§	banot.chan: channet to which annotations correspond
+§	banot.num: 0: beginning or end of P wave, 1: beginning or end of QRS, 2: beginning or end of T wave, 0: P wave peak, 0: QRS position, 0: normal T wave, 1: inverted T wave, 2: up T wave, 3: down T wave, 4: biphasic negative-positive T wave, 5: biphasic positive-negative T wave.  
+o	QT: structure with the value of QT interval (QT.val) and the position of the corresponding beat (QT.pos)
+o	QTC: structure with the values of the QT interval corrected by Bazzett’s formula ant the position of the corresponding beat (QTC.val,QTC.pos)
+o	QW: structure with Q wave amplitude (QW.val) and peak position (QW.pos)
+o	RW: structure with R wave amplitude (RW.val) and peak position (RW.pos)
+o	SW: structure with S wave amplitude (SW.val) and peak position (SW.pos)
+o	QRS: structure with the value of the QRS interval (QRS.val) and the position of the corresponding beat (QRS.pos)
+
+The function limits.m can be divided in the following blocks:
+
+1) First, it reads the signal header and data from the corresponding directories. Two kinds of formats are supported:
+MIT format: the functions readheader.m, opensig.m and getvec.m are used for that
+Lund format: the functions gethdsig.m and getsig.m (from Lund’s toolbox) are used for that
+
+2) Second, it reads the annotation file from its corresponding directory to obtain the QRS position given by an external annotator. If the annotator used is Aristotle, the input parameter anot=’ari’. If there is not annotation file, the program runs basicECG.m, which performs QRS detection by means of qrsdet.m (basicECG.m and qrsdet.m are from Lund’s toolbox).
+
+3) The detection of the beginning, peak and end of the ECG waves is accomplished with the following functions:
+- lynfilt.m: it filters the ECG signal to obtain intermediate signals
+- proces.m: it process the intermediate signal to obtain the wave limits; it makes use of the following functions:
+- qrsbound.m: it classify QRS complexes based on their morphology and obtains the position and limits of the different QRS waves using buscaR.m, buscaQ.m and buscaS.m.
+- buscaR.m: it determines the morphology of the QRS complex, if it is of RSR’ type it obtains the significant points, if not, it gives the position of the R wave
+- buscaQ.m: it obtains the beginning of the Q wave
+- buscaS.m: it obtains the end of the S wave
+- pbound.m: it detects P wave, giving its position, beginning and end, and its classification in normal or inverted
+- tbound.m: it classifies the T wave based on its morphology (normal, inverted, upward, downward, biphasic negative-positive, biphasic positive-negative); it obtains the position, beginning and end of the T wave
+- buscacero.m: it returns the first zero-crossing in a signal segment
+- buscapic2.m: it returns the position and value of the peaks in a signal segment, avoiding peaks of only one sample
+- buscaruido.m: it returns the mean level of noise in an signal segment 
+- calc_rr.m: it computes the mean RR interval for each beat
+- crearumbral.m: it gives the position of the first sample of a signal segment that crosses an specific threshold
+- testpic.m: it checks if the position of a wave peak obtained by the derivative criterion corresponds to a peak in the ECG signal 

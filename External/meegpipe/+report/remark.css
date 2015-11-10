@@ -1,0 +1,443 @@
+/*
+Description: Styling for Remark
+Documentation: style.txt
+*/
+
+html, body 
+{
+    margin:0;
+    padding:0;
+    height: 100%;
+}
+
+body 
+{
+    /* Fonts from the sans-serif generic family are easier to read
+    on the screen. Sans-serif roughly means 'without wiggles'. */
+    font-family: Arial, Sans-serif;
+    /* Trebuchet MS, */
+}
+
+#remark-all
+{
+    /* We need this for positioning the footer. */
+    position: relative;
+    min-height: 100%;
+    padding: 0;
+    padding-bottom: 1em;
+}
+
+/* All of Remark-generated content is located at
+at div-block whose id is 'remark' (id's are supposed
+to be unique). */
+#remark
+{
+    /* See the W3C CSS School for this trick. */
+    font-size: 100%;
+    /* Using more space between lines of text makes it easier to read. */
+    line-height: 1.3em;
+    /* Using margins, the text concentrates more tighly
+    towards the center. There will be empty regions on both 
+    sides. I find this easier to read. */
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+#remark .err
+{
+border-width: 0;
+}
+
+/* Verbatim content */
+#remark pre
+{
+    /* Verbatim content is bordered with a dotted, one-pixel wide rectangle. */
+    /*
+    border-style: dotted;
+    border-width: 1px;
+    border-color: rgb(85, 85, 85);
+    */
+
+    /* Its background is colored light blue. */
+    background-color: rgb(234, 240, 255);
+
+    /* This can be used to indent the verbatim content. */
+    margin-top: 1em;
+    margin-bottom: 0em;
+    margin-left: 0em;
+    margin-right: 0em;
+    
+    /* The verbatim content box should always have enough space
+    to cover some 80 characters per source-code line, but it
+    should never be wider than the containing element.*/
+    min-width: 40em;
+    max-width: 100%;
+    
+    /* The content should not be near the border. */
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+/* Normal text */
+#remark p
+{
+    margin-left: 0px;
+    /*text-align: justify;*/
+}
+
+/* Code */
+#remark code
+{
+    color: #505080;
+    font-family: monospace;
+}
+
+/* Level 1 headings */
+#remark h1
+{
+    clear: left;
+    font-size: 1.6em;
+    color: #800000;
+    margin: 0;
+    margin-bottom: 1em;
+    /* Draw a dotted line under the heading. */
+    border-bottom: 1px solid #aca899;
+    /* Make some space between the heading and the line under it.*/ 
+    padding-bottom: 0.2em;
+    /*letter-spacing: 0.7em;*/
+    line-height: 1.5em;
+}
+
+/* Level 2 headings */
+#remark h2 
+{
+    clear: left;
+    font-size: 1.4em;
+    color: #85A500;
+    margin: 1.5em 0em 1em 0em;
+    /* Draw a dotted line under the heading. */
+    border-bottom: 1px dotted #aca899;
+    /* Make some space between the heading and the line under it.*/ 
+    padding-bottom: 0.3em;
+    /*letter-spacing: 0.3em;*/
+}
+
+/* Level 3 headings */
+#remark h3 
+{
+    clear: left;
+    margin: 1.5em 0em 1em 0em;
+    font-size: 1.2em;
+    color: #356535;
+}
+
+/* Level 4 headings */
+#remark h4 
+{
+    clear: left;
+    font-size: 1.0em;
+    color: #255525;
+    margin: 1.5em 0em 1em 0em;
+}
+
+/* Images */
+#remark img 
+{
+    /* For the image styling, use the highslide.css file instead */
+}
+
+/* Unordered lists (bullets) */
+#remark ul 
+{
+    list-style: disk;
+}
+
+/* Ordered lists */
+#remark ol
+{
+    list-style-type: decimal;
+}
+
+/* A list item */
+#remark li 
+{
+}
+
+/* Links */
+#remark a 
+{ 
+    text-decoration: none; 
+    color: #505090; 
+}
+
+/* Links when the mouse is hold over them */
+#remark a:hover 
+{ 
+    text-decoration: underline;
+    color: #800000; 
+}
+
+/* Tables */
+#remark table
+{
+    border-collapse: collapse;
+    margin-left: 0;
+}
+
+/* Tables and cells*/
+#remark table, th, td
+{
+    /* Give them a one-pixel wide border. */
+    border: 1px solid black;
+}
+
+/* Tables: Cells */
+#remark td, th
+{
+    /* Give some empty space around the content of a cell. */
+    padding: 5px;
+}
+
+/* Table: Cells: Headers */
+#remark th
+{
+    color: Maroon;
+}
+
+/* Table: Cells: Data */
+#remark td
+{
+}
+
+/* Definition lists */
+#remark dl
+{
+}
+
+/* Definition lists: The thing to define. */
+#remark dt
+{
+    font-size: 1.1em;
+    color: rgb(0, 71, 201);
+    padding-bottom: 0em;
+}
+
+/* Definition lists: The definition of the thing. */
+#remark dd
+{
+    padding-bottom: 1em;
+}
+
+/* ParentList */
+/* ---------- */
+
+/* Styling for ParentList lists. */
+#remark .ParentList ol
+{
+    /* Set visibility to hidden to remove parent-list from sight. */
+    /*visibility: hidden;*/
+    
+    /* The position is given by us, not deduced from others. */
+    /* position: absolute; */
+    
+    /* Get rid of default-indentation for lists. */
+    margin: 0;
+    padding: 0;
+    padding-top: 1em;
+    
+    /* Get rid of default-dots for the list items. */
+    list-style-type: none;
+
+    /* Place a border around the list items. */
+    /*
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.15);
+    */
+}
+
+/* Styling for ParentList list-items. */
+#remark .ParentList li
+{
+    float: left;
+    
+    /* background-color: rgba(0, 0, 255, 0.25); */
+    /*padding-right: 1em;*/
+    padding-bottom: 0.5em;
+}
+
+/* Add a '/' between subsequent ParentList list-items. */
+#remark .ParentList li+li :before
+{
+    content: "/";
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+/* DocumentTree */
+/* ------------ */
+
+/* Syling for DocumentTree lists. */
+#remark .DocumentTree ol
+{
+    /* Get rid of default-indentation for lists. */
+    margin: 0;
+    /*padding: 0;*/
+    
+    /* Give some indendation to nested lists. */
+    padding-left: 2.5em;
+    padding-top: 0em;
+    padding-bottom: 0.5em;
+
+    /* Get rid of default-dots for the list items. */
+    list-style-type: none;
+}
+
+/* Styling for DocumentTree list-items. */ 
+#remark .DocumentTree ol li
+{
+    padding-bottom: 0em;
+}
+
+/* DocChildren */
+/* ----------- */
+
+/* Styling for DocChildren lists. */
+#remark .DocChildren ol
+{
+    /* Get rid of default-indentation for lists. */
+    margin: 0;
+    padding: 0;
+
+    /* Get rid of default-dots for the list items. */
+    list-style-type: none;
+}
+
+/* Styling for DocChildren list-items. */ 
+#remark .DocChildren ol li
+{
+    /* The items are placed side-by-side, until the
+    right-edge and they wrap to the next row. */
+    float: left;
+    /* Since the width of an item is 50%, there are
+    at most 2 items per row. */
+    width: 50%;
+    /* Add some vertical spacing between items. */
+    padding-bottom: 1em;
+}
+
+/* Index */
+/* ----- */
+
+/* Styling for Index lists. */
+#remark .Index ol
+{
+    /* Get rid of default-indentation for lists. */
+    margin: 0;
+    padding: 0;
+
+    /* Get rid of default-dots for the list items. */
+    list-style-type: none;
+}
+
+/* Styling for Index list-items. */ 
+#remark .Index ol li
+{
+    /* The items are placed side-by-side, until the
+    right-edge and they wrap to the next row. */
+    float: left;
+    /* Since the width of an item is 50%, there are
+    at most 2 items per row. */
+    width: 50%;
+    /* Add some vertical spacing between items. */
+    padding-bottom: 1em;
+}
+
+/* The remark-all div contains the remark div and the remark-footer div.*/
+#remark-all
+{
+    /* Height of the footer */
+    padding-bottom: 3em;
+}
+
+/* Remark generates the time-date and the link to itself 
+in the 'remark-footer' div. */
+
+#remark-footer 
+{
+    position: absolute;
+    bottom: 0;
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+#remark-footer p 
+{
+    border-top: 1px dotted #716f64;
+    font-size: 0.7em;
+    font-family:'Trebuchet MS',Arial;
+    color: #716f64;
+}
+#remark-footer a 
+{ 
+    text-decoration: none; 
+    color: #716f64; 
+}
+
+#remark-footer a:hover 
+{ 
+    text-decoration: underline; 
+    color: #600; 
+}
+
+#remark .remark-end-list
+{
+    display: block;
+    clear: left;
+    padding: 0;
+    border: 0;
+}
+
+
+/* EquationSet */
+
+#remark .EquationSet li
+{
+    list-style-type: none;
+}
+
+/* Equation */
+
+#remark div.Equation
+{
+    display: block;
+	padding-bottom: 0.5em;
+}
+
+#remark .Equation-Body
+{
+    padding-left: 4em;
+}
+
+#remark .Equation-Number
+{
+	visibility: hidden;
+    padding: 0;
+    margin: 0;
+    font-size: 1.5em;
+    color: rgb(190, 190, 0);
+    float: right;
+}
+
+#remark span.Equation-Number:after
+{
+    content: ")";
+}
+
+#remark span.Equation-Number:before
+{
+    content: "(";
+}
+

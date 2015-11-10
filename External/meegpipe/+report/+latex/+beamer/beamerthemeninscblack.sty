@@ -1,0 +1,32 @@
+\ProvidesPackage{beamerthemeninsc}[2010/10/05]
+
+% Beamer theme by German Gomez-Herrero <g[dot]gomez[aT]nin[DoT]knaw[dot]nl>
+% 
+% based on the LaTeX-Beamer package :
+% Copyright 2003 by Till Tantau <tantau@users.sourceforge.net>
+%
+% This program can be redistributed and/or modified under the terms
+% of the GNU Public License, version 2.
+
+\usetheme{Warsaw}
+\usecolortheme{ninscblack}
+\hypersetup{pdfpagemode=FullScreen} % makes your presentation go automatically to full screen
+\useoutertheme[subsection=false]{smoothbars}
+
+% to have the same footer on all slides
+%\setbeamertemplate{footline}[text line]{STUFF HERE!}
+\setbeamertemplate{footline}[text line]{} % makes the footer EMPTY
+
+%\useinnertheme{ninsc} % to be done!
+%\usefonttheme{ninsc}
+%\useoutertheme{ninsc}
+
+\setbeamertemplate{navigation symbols}{}
+
+\AtBeginDocument{%
+  \typeout{..................................................................}
+  \typeout{You are using the ninsc beamer theme (German Gomez-Herrero)}
+  \typeout{Version: 0.1 October 2010.}
+  \typeout{..................................................................}
+}
+

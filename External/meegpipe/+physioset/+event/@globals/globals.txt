@@ -1,0 +1,7 @@
+# -------------------------------------------------------------------------
+# pset.event
+# -------------------------------------------------------------------------
+
+GroupIndexedEvents  true        # Group event types which differ only in a
+                                # numeric index? e.g. types 'TR 1' and 
+                                # 'TR 2' will become of type 'TR'

@@ -1,0 +1,81 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+spectopo
+line 731 should be 
+ [compeegspecdB freqs] = spectcomp( newweights*data(:,:), frames, srate, epoch_subset, g);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Signalstat
+line 421 should be
+topoplot(map,chan_locs,'electrodes','off','plotchans',1:length(map));
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+pop_readegi
+lines 223 > should be out-commeted
+% if all(EEG.data(end,1:10) == 0)
+%     disp('Deleting empty data reference channel (reference channel location is retained)');
+%     EEG.data(end,:)   = [];
+%     EEG.nbchan        = size(EEG.data,1);
+%     EEG = eeg_checkset(EEG);
+% end;
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Remember to replace channel location files!!
+
+%%%%%%%%%%%%%%%%%%%%
+topoplot
+line 1374-1375 should be (to avoid nose and ears to disappear when plotting)
+set(gca, 'xlim', [-0.6 0.6]); set(plotax, 'xlim', [-0.6 0.6]);
+set(gca, 'ylim', [-0.6 0.6]); set(plotax, 'ylim', [-0.6 0.6]);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+pop_loadbv
+line 287 (reading of markers) should be:
+MRK = readbvconf(path, [ hdrfile(1:end-5) '.vmrk']);
+line 152 (reading of Data) should be:
+   [IN, message] = fopen(fullfile(path, ([hdrfile(1:end-5) '.dat'])));
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+readegilocs.m
+line 79 to 80 (which deletes the first 3 channels in locs structure) should be deleted.
+%%%%%%%%%%%%%%%%%%%%%
+in topoplot.m
+line 1337: the following line, should not be out-commented
+%ringh= patch(headx,heady,ones(size(headx)),HEADCOLOR,'edgecolor',HEADCOLOR,'linewidth', HLINEWIDTH); hold on
+%%%%%%%%%%%%%%%%%%%%
+Fix contour function bug:
+    %workaround conture function bug (Matlab R2014b)
+    ind=isnan(ZiC);
+    F=scatteredInterpolant(Xi(~ind),Yi(~ind),ZiC(~ind));
+    ZiC(ind)=F(Xi(ind),Yi(ind));
+    %workaround end
+
+See https://github.com/NeurophysiologicalBiomarkerToolbox/NBT/commit/13d67549fda123dfec5d8e406d16fe9cf54a44a7
+
+%%%%%%%%%%%%%%%%%%%%%
+eeg_eegrej : combine regions should be
+function newregions = combineregions(regions)
+newregions = combine(combine(regions));
+    function newregions=combine(regions)
+        [regions(:,1),ii]=sort(regions(:,1));
+        regions(:,2) = regions(ii,2);
+        newindex = 0;
+        regions = [regions(1,:); regions];
+        index = size(regions,1);
+        while index >= 2
+            if regions(index-1,2) >= regions(index,1)
+                indexEnd = index;
+                while regions(index-1,2) >= regions(index,1) && index > 2 %find nested regions
+                    index = index - 1;
+                end
+                index =  index - 1;
+                
+                disp('Warning: overlapping regions detected and fixed in eeg_eegrej');
+                newindex = newindex + 1;
+                RegionEnd = max(regions(index+1:indexEnd,2));
+                newregions(newindex,:) = [regions(index+1,1) RegionEnd(1)];
+            else
+                newindex = newindex + 1;
+                newregions(newindex,:) = regions(index,:);
+                index = index - 1;
+            end
+        end
+        
+        [newregions(:,1),ii]=sort(newregions(:,1));
+        newregions(:,2) = newregions(ii,2);
+    end
+end

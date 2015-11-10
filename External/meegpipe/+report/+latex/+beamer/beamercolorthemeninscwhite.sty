@@ -1,0 +1,66 @@
+\ProvidesPackage{beamercolorthemeninsc}[2012/11/06]
+
+% Beamer theme by Germán Gomez-Herrero <g[dot]gomez[aT]nin[DoT]knaw[dot]nl>
+%
+% based on the LaTeX-Beamer package :
+% Copyright 2003 by Till Tantau <tantau@users.sourceforge.net>
+%
+% This program can be redistributed and/or modified under the terms
+% of the GNU Public License, version 2.
+
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Some color definitions...
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{ninsc@lightgray}{gray}{0.9}
+
+\definecolor{ninsc@flashygreen}{rgb}{	0.3255,    	1.0000,    0.1882}
+\definecolor{ninsc@kiwigreen}{rgb}{		0.8627,    	0.8902,         0}
+\definecolor{ninsc@softkiwigreen}{rgb}{	0.9765, 	0.9804,    0.8196}
+% An even softer bg tonality is {0.9882,    0.9882,    0.9098}
+
+\definecolor{ninsc@green}{rgb}{0.2344,0.6914,0.0156}
+\definecolor{ninsc@darkgreen}{rgb}{0.3008,0.3477,0}
+
+\definecolor{ninsc@darkorange}{rgb}{0.7266, 0.3594,0.0586}
+\definecolor{ninsc@lightyellow}{rgb}{0.9961,0.9961,0.7383}
+
+\mode<presentation>
+
+\usecolortheme[named=ninsc@green]{structure}
+\setbeamercolor{normal text}{fg=gray,bg=white}%ninsc@kiwigreen!7!white}
+
+\setbeamercolor{section in toc}{fg=white,bg=white}
+\setbeamercolor{alerted text}{fg=red}
+\setbeamercolor*{palette primary}{fg=black,bg=ninsc@flashygreen}
+\setbeamercolor*{palette secondary}{fg=ninsc@darkgreen,bg=ninsc@lightyellow}
+\setbeamercolor*{palette tertiary}{fg=black,bg=ninsc@lightyellow}
+\setbeamercolor*{palette quaternary}{fg=white,bg=black}
+
+%%%%%% Title colors
+\setbeamercolor{title}{fg=black,bg=white}
+\setbeamercolor{titlelike}{parent=palette primary,fg=ninsc@darkgreen}
+\setbeamercolor{framesubtitle}{fg=ninsc@darkgreen,bg=ninsc@lightgray}
+\setbeamercolor{frametitle}{fg=black,bg=ninsc@lightgray}
+
+%%%%%% Block colors
+\setbeamercolor{block title}{fg=black,bg=ninsc@lightgray}
+\setbeamercolor{block title alerted}{use=alerted text,fg=black,bg=alerted text.fg!75!black}
+\setbeamercolor{block title example}{use=example text,fg=black,bg=ninsc@flashygreen}
+
+\setbeamercolor{block body}{parent=normal text,use=block title,bg=white,fg=black}
+\setbeamercolor{block body alerted}{parent=normal text,use=block title alerted,bg=white}
+\setbeamercolor{block body example}{parent=normal text,use=block title example,bg=white}
+
+\setbeamercolor*{separation line}{}
+\setbeamercolor*{fine separation line}{}
+
+\mode
+<all>
+
+\makeatother

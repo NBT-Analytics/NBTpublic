@@ -1,0 +1,69 @@
+Package: filespec
+============
+
+
+A simple wrapper around the core [Perl][perl] module [File::Spec][file-spec].
+Addmittedly this is an extremely simple wrapper but it might be handy for 
+some people that want to perform tasks such as translating between relative
+and absolute path names, accross multiple operating systems. The scripts 
+included here use the version of Perl that is shipped in with all modern 
+versions of MATLAB. 
+
+The scripts are organized within a [MATLAB package][matlab-pkg]. 
+MATLAB packages are a nice way of keeping your scripts organized, but it is
+a relatively new feature of MATLAB, which means that you may not be able to
+run the scripts if you are using an outdated version of MATLAB. 
+
+[perl]: http://www.perl.org/
+[file-spec]: http://perldoc.perl.org/File/Spec.html
+[matlab-pkg]: http://www.mathworks.nl/help/techdoc/matlab_oop/brfynt_-1.html 
+
+## Installation
+
+To install, simply place the folder `+filespec` somewhere in your 
+hard-drive, say in `C:/mylocation`. As a result you should have all 
+the scripts and this documentation located in `C:/mylocation/+filespec`. 
+Finally, add folder `C:/mylocation` to your MATLAB path. 
+
+
+## The filespec package
+
+All scripts are contained within a package called `filespec`, which means
+that for running the scripts you will have to either import the package 
+(using MATLAB's [import][matlab-import] command) or specify the package
+name when calling a specific script. That is, the following code:
+
+[matlab-import]: http://www.mathworks.nl/help/techdoc/ref/import.html
+
+    myRelPath = '../tmp/./../somefolder';
+    myAbsPath = filespec.rel2abs(myRelPath);
+
+is equivalent to this code:
+
+    myRelPath = '../tmp/./../somefolder';
+    import filespec.rel2abs;
+    myAbsPath = rel2abs(myRelPath);
+
+Alternatively you can simply import the whole package whenever you want to 
+use any of the scripts using:
+
+    import filespec.*;
+
+## Features
+
+The most useful feature of this package is the ability to translate 
+between absolute and relative paths:
+
+    import filespec.*;
+    myRelPath  = '../tmp/./../somefolder';
+    myAbsPath  = rel2abs(myRelPath);
+    myRelPath2 = abs2rel(myAbsPath);
+
+
+Note that in OSes that support symlinks (e.g. Unix) the commands above does *not* 
+collapse x/../y sections into y. This is by design. If /foo on your
+system is a symlink to /bar/baz, then /foo/../quux is actually /bar/quux,
+ not /quux as a naive ../-removal would give you. For more information, 
+read the help of each script or refer to the documentation of the Perl
+module [File::Spec][file-spec].
+

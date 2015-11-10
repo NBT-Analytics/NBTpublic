@@ -1,0 +1,33 @@
+# 
+# Global variables for package pset.node
+
+# Construction defaults for class abstract_node
+Parallelize     true
+Queue           oge.globals.get.Queue
+Save            false
+DataSelector    []
+
+# Defaults for plotting
+LineWidth       1   # Reference line width for line plots
+Gallery         report.gallery.gallery
+
+
+#
+# These variables below are not to be edited! They are for internal only
+#
+
+OrigFile        ''  # The original name of the data file being processed
+
+SavePath        ''  # Where the node outputs are to be stored
+
+ResetNodes      false
+FakeID          false
+
+HdrFileExt      pset.globals.get.HdrFileExt
+DataFileExt     pset.globals.get.DataFileExt
+
+Verbose          goo.globals.get.Verbose
+VerboseLabel     goo.globals.get.VerboseLabel
+GenerateReport   goo.globals.get.GenerateReport
+
+VisibleFigures  goo.globals.get.VisibleFigures

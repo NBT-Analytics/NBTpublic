@@ -1,0 +1,25 @@
+# Dimension prefixes: decimal power
+#
+# Name      # Power     # Prefix
+# -------  ---------   -----------
+yotta       24          Y
+zetta       21          Z
+exa         18          E
+peta        15          P
+tera        12          T
+giga        9           G
+mega        6           M
+kilo        3           K
+hecto       2           H
+deca        1           D
+basic       0           
+deci        -1          d
+centi       -2          c
+milli       -3          m
+micro       -6          u
+nano        -9          n
+pico        -12         p
+femto       -15         f
+atto        -18         a
+zepto       -21         z
+yocto       -24         y

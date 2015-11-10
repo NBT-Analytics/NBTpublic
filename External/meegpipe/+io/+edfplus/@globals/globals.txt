@@ -1,0 +1,33 @@
+#
+# Global variables for the EDFPLUS package
+#
+Precision               double              
+Verbose                 true                # Verbose mode on?
+IgnoreRef               true                # Ignore reference leads?
+RefLabel                'VREF'              # Label of a reference lead 
+#                                           # (case sensitive!)
+MaxRecSize              61440               # Maximum record size in bytes
+MaxAnnSize              1000                # Maximum number of bytes used by annotations in a single record    
+# Header
+NbCharsVersion          8
+NbCharsPatId            80
+NbCharsRecId            80
+NbCharsStartDate        8
+NbCharsStartTime        8
+NbCharsHeaderBytes      8
+NbCharsReserved1        44
+NbCharsNbRecords        8
+NbCharsRecDur           8
+NbCharsNbSensors        4
+NbCharsReserved2        32
+# SignalSet portion of the header
+NbCharsSensor           16
+NbCharsTransducer       80
+NbCharsDimension        8
+NbCharsPhysMin          8
+NbCharsPhysMax          8
+NbCharsDigMin           8
+NbCharsDigMax           8
+NbCharsPreFilter        80
+NbCharsNbSamples        8
+    

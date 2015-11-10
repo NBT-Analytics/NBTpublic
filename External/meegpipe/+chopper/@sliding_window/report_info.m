@@ -1,0 +1,13 @@
+function [pName, pValue, pDescr] = report_info(obj)
+
+
+pName = {...
+    'WindowLength', ...
+};
+
+pDescr = {...
+    'Window length in data samples', ...
+};
+
+
+pValue = cellfun(@(x) obj.(x), pName, 'UniformOutput', false);

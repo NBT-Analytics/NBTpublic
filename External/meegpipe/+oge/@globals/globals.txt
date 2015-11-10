@@ -1,0 +1,16 @@
+# ------------------------------------------------------------------------
+# oge.qsub
+# ------------------------------------------------------------------------
+
+# Virtual memory that a job can take, in Gb
+HVmem               100             
+
+# Time that a job can take, in HH:MM:SS
+HRt                 '100:00:00'  
+
+# Directory where temporary files will be stored
+# IMPORTANT: The directory below should be accessible by all execution
+# nodes. This may prevent using the default OS temporary folder
+TempDir             [mperl.file.homedir.my_home, filesep '.meegpipe' filesep 'tmp']
+   
+Queue               short.q

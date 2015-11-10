@@ -1,0 +1,18 @@
+# 
+# Global variables 
+#
+
+# Use this to deactivate verbose mode globally for all nodes/pipelines
+Verbose             true
+
+# This variable is typically used by nodes to affect the way function calls
+# within a node present status messages. But you may also use it to attach 
+# the same label to all status messages from all nodes/pipelines
+VerboseLabel        ''
+
+# Activate/deactivate reporting capabilities for nodes
+GenerateReport      true
+
+VisibleFigures      false
+ImageResolution     600
+

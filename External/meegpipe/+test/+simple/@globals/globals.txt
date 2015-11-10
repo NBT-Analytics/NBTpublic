@@ -1,0 +1,27 @@
+# 
+# Global variables for package test.simple
+#
+
+# It is highly unlikely that you may want to modify these four:
+TestCount       0
+OK              0
+Failed          0
+Died            0
+
+# Exit status for success and failure
+Success         0   # All tests were successful
+Failure       255   # Test died or all passed but wrong # of tests run
+
+# Exit status for partial success (some, but not all tests, failed)
+Partial      @(x) x.get.TestCount - x.get.OK
+
+# To keep track of the system-wide verbosity setting before initialize()
+VerboseGlobal
+Verbose
+
+# If DebugMode is set to true, all produced exceptions will be immediately
+# rethrown. This is sometimes useful for stopping the testing as soon as an
+# error is found and for determining the exact location where the error 
+# was produced.
+DebugMode       false
+

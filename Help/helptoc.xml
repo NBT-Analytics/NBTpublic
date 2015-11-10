@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!-- $Revision: 1.1.6.1 $ $Date: 2004/04/20 22:13:25 $ -->
+
+<toc version="1.0">
+
+<tocitem target="introlNBT.html" image="$toolbox/matlab/icons/book_mat.gif">NBT 
+
+<tocitem target="http://www.falw.vu/~nbt/" image="$toolbox/matlab/icons/webicon.gif">NBT wiki</tocitem>
+<tocitem target="http://www.falw.vu/~nbt/doku.php?id=tutorial:start" image="$toolbox/matlab/icons/webicon.gif">Tutorials</tocitem>
+<tocitem target="http://www.falw.vu/~nbt/doku.php?id=nbtdocumentation:start/" image="$toolbox/matlab/icons/webicon.gif">Documentation</tocitem>
+<tocitem target="http://www.falw.vu/~nbt/doku.php?id=nbtdev:start" image="$toolbox/matlab/icons/webicon.gif">How to contribute</tocitem>
+</tocitem>
+</toc>

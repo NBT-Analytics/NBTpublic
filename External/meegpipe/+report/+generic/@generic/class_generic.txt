@@ -1,0 +1,4 @@
+Class: generic
+============
+
+[[Parent]]: pkg_generic.txt

@@ -1,0 +1,36 @@
+# List of signals with the corresponding label and dimension
+#
+# Comment lines always start with #
+#
+# Signal Description    # Name      # Basic units
+#-------------------    --------    --------------
+Length or distance      : Dist  :   m       
+Area                    : Area  :   m^2
+Volume                  : Vol   :   m^3
+Duration                : Dur   :   s
+Acceleration            : Acc   :   m/s^2, g
+Velocity                : Vel   :   m/s
+Mass                    : Mass  :   g
+Angle                   : Angle :   rad,deg
+Percentage              : %     :   %
+Value (money)           : Value :   AUD,ATS,BEF,BRL,CAD,CHF,CLP,CNY,EUR,GBP,HKD,INR,ILS,JPY,MXP,NLG,NZD,RUR,SGC,USD,ZAR
+Electroencephalogram    : EEG   :   V
+Electrocardiogram       : ECG   :   V
+Electrooculogram        : EOG   :   V
+Electroretinogram       : ERG   :   V
+Electromyogram          : EMG   :   V
+Magneto encephalogram   : MEG   :   T,T/m
+Magneto cardiogram      : MCG   :   
+Evoked Potential        : EP    :
+Temperature             : Temp  :   K,degC,degF
+Respiration             : Resp  :   
+Oxygen saturation       : SaO2  :   %
+Light                   : Light :   lux
+Sound                   : Sound : 
+Events                  : Event :
+Position (e.g. body)    : Pos   : 
+Carbon Wires            : CW    :   V
+Blood pressure          : BP    :
+Pupillometry            : Pupil :
+Unknown                 : Unknown : na
+# Add new signal types above this line

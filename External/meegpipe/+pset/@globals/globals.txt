@@ -1,0 +1,33 @@
+# -------------------------------------------------------------------------
+# General variables
+# -------------------------------------------------------------------------
+
+Delimiter           ;           # Default delimiter for ASCII delimited files
+
+# -------------------------------------------------------------------------
+# pset.pset
+# -------------------------------------------------------------------------
+
+Temporary           true        # Should a pset be temporary by default?
+Transposed          false       # Use column-major matrices
+Writable            true        # Should you be able to write to a pset?
+Precision           double      # Default numerical precision        
+MapSize             100*10e9    # Maximum size of a memory map in bytes
+                                # Does making this smaller help in Mac OS?
+                                # In Windows x64, 100*10e9 seems to work fine
+
+LargestMemoryChunk  100*10e6    # Maximum size for a MATLAB variable
+ChunkSize           100*10e6    # For backwards compatibilitly only
+MemoryMapSize       100*10e60   # Maximum memory map chunk size
+DataFileExt         .pset       # Default data file extension
+HdrFileExt          .pseth      # Default data file extension
+Compact             false       # This variable is obsolete and will be
+                                # removed in future releases
+
+# -------------------------------------------------------------------------
+# pset.physioset
+# -------------------------------------------------------------------------
+
+SamplingRate        250            # Default sampling rate
+DateFormat          'dd-mm-yyyy'   # Default date format
+TimeFormat          'HH:MM:SS'     # Default time format
