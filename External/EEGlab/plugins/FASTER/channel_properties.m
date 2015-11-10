@@ -32,6 +32,8 @@ if ~isempty(ref_chan) && length(ref_chan)==1
     pol_dist=distancematrix(EEG,eeg_chans);
     [s_pol_dist dist_inds] = sort(pol_dist(ref_chan,eeg_chans));
     [s_inds idist_inds] = sort(dist_inds);
+else
+    error('You need to define the reference channel as a channel number')
 end
 
 % TEMPORAL PROPERTIES
