@@ -82,7 +82,7 @@
 function PhaseLockingObject = nbt_doPhaseLocking(Signal,SignalInfo,FrequencyBand,interval,filterorder,windowleng,overlap,indexPhase)
 
 %--- Input checks
-error(nargchk(7,8,nargin))
+narginchk(4,8)
 
 %% assigning fields:
 
