@@ -163,7 +163,7 @@ function plotting
     end
     for ii=1:length(channels)
         hh(channels(ii))=uicontextmenu;
-        h(channels(ii))=plot(index,Signal(:,ii),'color',colors(ii,:),'displayname',['Channel ',num2str(channels(ii))],'uicontextmenu',hh(channels(ii)));
+        h(channels(ii))=plot(index,Signal(:,channels(ii)),'color',colors(ii,:),'displayname',['Channel ',num2str(channels(ii))],'uicontextmenu',hh(channels(ii)));
         uimenu(hh(channels(ii)), 'Label', ['Channel ',num2str(channels(ii))]);
         uimenu(hh(channels(ii)), 'Label','Set as noisy channel','callback',{@set_bad_channel,channels(ii)});
         uimenu(hh(channels(ii)), 'Label','Unset as noisy channel','callback',{@unset_bad_channel,channels(ii)});
