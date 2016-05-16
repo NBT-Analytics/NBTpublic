@@ -34,7 +34,7 @@ phaseSignal = angle(hilbert(Signal));
 
 for i = 1:(numChannels-1)
     for m = (i+1):numChannels
-        PLIobject.pliVal(i,m) = abs(mean(sign(phaseSignal(:,i)-phaseSignal(:,m))));
+        PLIobject.pliVal(i,m) = abs(mean(sign(sin(phaseSignal(:,i)-phaseSignal(:,m))));
     end
 end
 
