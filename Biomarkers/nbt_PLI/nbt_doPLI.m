@@ -34,7 +34,9 @@ phaseSignal = angle(hilbert(Signal));
 
 for i = 1:(numChannels-1)
     for m = (i+1):numChannels
-        PLIobject.pliVal(i,m) = abs(mean(sign(sin(phaseSignal(:,i)-phaseSignal(:,m))));
+        % See Stam et al, Hum Brain Mapp. 2007 Nov;28(11):1178-93. https://www.ncbi.nlm.nih.gov/pubmed/17266107
+        % Equation 6
+        PLIobject.pliVal(i,m) = abs(mean(sign(sin(phaseSignal(:,i)-phaseSignal(:,m)))));
     end
 end
 
