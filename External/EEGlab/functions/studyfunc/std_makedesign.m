@@ -155,6 +155,8 @@ if ~isempty(varargin) && isstruct(varargin{1})
     defdes = varargin{1};
     varargin(1) = [];
 end;
+if isempty(defdes.variable(1).pairing), defdes.variable(1).pairing = 'on'; end;
+if isempty(defdes.variable(2).pairing), defdes.variable(2).pairing = 'on'; end;
 if isempty(defdes.filepath), defdes.filepath = ''; end;
 opt = finputcheck(varargin,  {'variable1'     'string'    []     defdes.variable(1).label;
                               'variable2'     'string'    []     defdes.variable(2).label;
@@ -175,6 +177,7 @@ if isstr(opt), error(opt); end;
 if ~isempty(opt.dataselect), opt.datselect = opt.dataselect; end;
 if strcmpi(opt.variable1, 'none'), opt.variable1 = ''; end;
 if strcmpi(opt.variable2, 'none'), opt.variable2 = ''; end;
+if ~isempty(opt.subjselect) && iscell(opt.subjselect{1}), opt.subjselect = opt.subjselect{1}; end;
 %if iscell(opt.values1), for i = 1:length(opt.values1), if iscell(opt.values1{i}), opt.values1{i} = cell2str(opt.values1{i}); end; end; end;
 %if iscell(opt.values2), for i = 1:length(opt.values2), if iscell(opt.values2{i}), opt.values2{i} = cell2str(opt.values2{i}); end; end; end;
     
@@ -321,7 +324,7 @@ for n1 = 1:nf1
                     if ~isempty(subjects{s}), txtval = [ '_' rmblk(subjects{s}) txtval ]; end;
                     if isempty(opt.filepath), tmpfilepath = ALLEEG(datsubj(1)).filepath; else tmpfilepath = opt.filepath; end;
                     des.cell(count).filebase = fullfile(tmpfilepath, [ 'design' int2str(designind) txtval ] );
-                    des.cell(count).filebase = checkfilelength(des.cell(count).filebase);
+                    %des.cell(count).filebase = checkfilelength(des.cell(count).filebase);
                 end;
                 count = count+1;
             end;

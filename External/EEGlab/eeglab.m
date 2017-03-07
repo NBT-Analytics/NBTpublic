@@ -120,7 +120,7 @@
 % <a href="matlab:helpwin eeg_helppop">eeg_helppop</a>        - help on pop_ and eeg_ functions
 % <a href="matlab:helpwin eeg_helpsigproc">eeg_helpsigproc</a>    - help on
 
-% Copyright (C) 2001 Arnaud Delorme and Scott Makeig, Salk Institute, 
+% Copyright (C) 2001 Arnaud Delorme and Scott Makeig, Salk Institute,
 % arno@salk.edu, smakeig@ucsd.edu.
 %
 % This program is free software; you can redistribute it and/or modify
@@ -151,6 +151,14 @@ tmpv = which('version');
 if ~isempty(findstr(lower(tmpv), 'biosig'))
     [tmpp tmp] = fileparts(tmpv);
     rmpath(tmpp);
+end;
+% remove freemat folder if it exist
+tmpPath = fileparts(fileparts(which('sread')));
+newPath = fullfile(tmpPath, 'maybe-missing', 'freemat3.5');
+if exist(newPath) == 7
+    warning('off', 'MATLAB:rmpath:DirNotFound');
+    rmpath(newPath)
+    warning('on', 'MATLAB:rmpath:DirNotFound');
 end;
 if str2num(vers(1)) < 7 && str2num(vers(1)) >= 5
     tmpWarning = warning('backtrace');
@@ -317,6 +325,12 @@ if ~iseeglabdeployed2
         rmpathifpresent( optimpath );
         warning('on', 'MATLAB:rmpath:DirNotFound');
     end;
+
+    % remove BIOSIG path which are not needed and might cause conflicts
+    biosigp{1} = fileparts(which('sopen.m'));
+    biosigp{2} = fileparts(which('regress_eog.m'));
+    biosigp{3} = fileparts(which('DecimalFactors.txt'));
+    removepath(fileparts(fileparts(biosigp{1})), biosigp{:})
 else
     eeglab_options;
 end;
@@ -377,7 +391,8 @@ if nargin == 1
         close(W_MAIN);
         eeglab;
         return;
-	else
+    else
+        fprintf(2,['EEGLAB Warning: Invalid argument ''' onearg '''. Restarting EEGLAB interface instead.\n']);
         eegh('[ALLEEG EEG CURRENTSET ALLCOM] = eeglab(''rebuild'');');
 	end;
 else 
@@ -504,6 +519,7 @@ cb_importevent = [ check        '[EEG LASTCOM] = pop_importevent(EEG);'   e_stor
 cb_chanevent   = [ check        '[EEG LASTCOM]= pop_chanevent(EEG);'      e_store ]; 
 cb_importpres  = [ check        '[EEG LASTCOM]= pop_importpres(EEG);'     e_store ]; 
 cb_importev2   = [ check        '[EEG LASTCOM]= pop_importev2(EEG);'      e_store ]; 
+cb_importerplab= [ check        '[EEG LASTCOM]= pop_importerplab(EEG);'   e_store ]; 
 cb_export      = [ check        'LASTCOM = pop_export(EEG);'              e_histdone ];
 cb_expica1     = [ check        'LASTCOM = pop_expica(EEG, ''weights'');' e_histdone ]; 
 cb_expica2     = [ check        'LASTCOM = pop_expica(EEG, ''inv'');'     e_histdone ];
@@ -697,7 +713,8 @@ if ismatlab
     uimenu( event_m, 'Label', 'From data channel'                     , 'CallBack', cb_chanevent); 
     uimenu( event_m, 'Label', 'From Presentation .LOG file'           , 'CallBack', cb_importpres); 
     uimenu( event_m, 'Label', 'From E-Prime ASCII (text) file'        , 'CallBack', cb_importevent);
-    uimenu( event_m, 'Label', 'From Neuroscan .ev2 file'              , 'CallBack', cb_importev2); 
+    uimenu( event_m, 'Label', 'From Neuroscan .ev2 file'              , 'CallBack', cb_importev2); ;
+    uimenu( event_m, 'Label', 'From ERPLAB text files'                , 'CallBack', cb_importerplab); 
     uimenu( exportm, 'Label', 'Data and ICA activity to text file'    , 'CallBack', cb_export);
     uimenu( exportm, 'Label', 'Weight matrix to text file'            , 'CallBack', cb_expica1); 
     uimenu( exportm, 'Label', 'Inverse weight matrix to text file'    , 'CallBack', cb_expica2);
@@ -1029,7 +1046,10 @@ else
     end;
     global PLUGINLIST;
     PLUGINLIST = pluginlist;
+    
 end; % iseeglabdeployed2
+% Path exception for BIOSIG (sending BIOSIG down into the path)
+biosigpathlast; % fix str2double issue
 
 if ~ismatlab, return; end;
 % add other import ...
@@ -1343,7 +1363,7 @@ if ismatlab
     alltexth = setdiff_bc(alltexth, titleh);
 
     set(gcf, 'Position',[200 100 (WINMINX+WINMAXX+2*BORDERINT+2*BORDEREXT) (WINY+2*BORDERINT+2*BORDEREXT) ]);
-    set(titleh, 'fontsize', 14, 'fontweight', 'bold');
+    set(titleh, 'fontsize', TEXT_FONTSIZE_L, 'fontweight', 'bold');
     set(alltexth, 'fontname', FONTNAME, 'fontsize', FONTSIZE);
     set(W_MAIN, 'visible', 'on');
 end;
@@ -1414,8 +1434,11 @@ catch, return; end;
 index = 1;
 indexmenu = 1;
 MAX_SET = max(length( ALLEEG ), length(EEGMENU)-1);
-	
+
+tmp = warning;
+warning off;
 clear functions;
+warning(tmp);
 eeglab_options;
 if isempty(ALLEEG) && ~isempty(EEG) && ~isempty(EEG.data)
     ALLEEG = EEG;

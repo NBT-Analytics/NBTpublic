@@ -184,7 +184,12 @@ if EEG.nbchan > 100
 end;
 
 if icacomp == 1
-	eegplot( EEG.data, 'srate', EEG.srate, 'title', 'Scroll channel activities -- eegplot()', ...
+    %temp removal of bad channels
+    warning('setting channels marked as bad to zero for plotting')
+    EEG.tempdata = EEG.data;
+    EEG.tempdata(find(EEG.NBTinfo.badChannels),:) = 0;
+    %end removal of bad channels
+	eegplot( EEG.tempdata, 'srate', EEG.srate, 'title', 'Scroll channel activities -- eegplot()', ...
 			  'limits', [EEG.xmin EEG.xmax]*1000 , 'command', command, eegplotoptions{:}, varargin{:}); 
 else
     tmpdata = eeg_getdatact(EEG, 'component', [1:size(EEG.icaweights,1)]);

@@ -59,7 +59,7 @@ elseif (size(d,2)==size(c,2)) ;
         d  = [d1; d2];
 else
         fprintf(2,'Error GETCLASSIFIER: incorrect input arguments\n');
-        return;
+        return;
 end;        
 
 CL = sort(unique(c(~isnan(c)))); 

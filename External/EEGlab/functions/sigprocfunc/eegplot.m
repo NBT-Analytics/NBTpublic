@@ -276,7 +276,7 @@ if ~isstr(data) % If NOT a 'noui' call or a callback from uicontrols
    try, g.srate; 		    catch, g.srate		= 256; 	end;
    try, g.spacing; 			catch, g.spacing	= 0; 	end;
    try, g.eloc_file; 		catch, g.eloc_file	= 0; 	end; % 0 mean numbered
-   try, g.winlength; 		catch, g.winlength	= 5; 	end; % Number of seconds of EEG displayed
+   try, g.winlength; 		catch, g.winlength	= 10; 	end; % Number of seconds of EEG displayed
    try, g.position; 	    catch, g.position	= ORIGINAL_POSITION; 	end;
    try, g.title; 		    catch, g.title		= ['Scroll activity -- eegplot()']; 	end;
    try, g.plottitle; 		catch, g.plottitle	= ''; 	end;
@@ -426,6 +426,8 @@ if ~isstr(data) % If NOT a 'noui' call or a callback from uicontrols
         g.spacing = 1; % default
     end;
   end
+  
+  g.spacing = 40;
 
   % set defaults
   % ------------ 
@@ -1033,11 +1035,18 @@ u(22) = uicontrol('Parent',figh, ...
   
   % Zooms %%%%%%%%
   zm = uimenu('Parent',m(2),'Label','Zoom off/on');
-  commandzoom = [ 'set(gcbf, ''windowbuttondownfcn'', [ ''zoom(gcbf,''''down''''); eegplot(''''zoom'''', gcbf, 1);'' ]);' ...
-                  'tmpg = get(gcbf, ''userdata'');' ...
-                  'clear tmpg tmpstr;'];
-                  %'set(gcbf, ''windowbuttonmotionfcn'',
-                  %tmpg.commandselect{2}); clear tmpg tmpstr;']; clean4release
+   if verLessThan('matlab','8.4.0')
+        commandzoom = [ 'set(gcbf, ''WindowButtonDownFcn'', [ ''zoom(gcbf,''''down''''); eegplot(''''zoom'''', gcbf, 1);'' ]);' ...
+                        'tmpg = get(gcbf, ''userdata'');' ...
+                        'clear tmpg tmpstr;'];
+   else
+       % Temporary fix to avoid warning when setting a callback and the  mode is active
+       % This is failing for us http://undocumentedmatlab.com/blog/enabling-user-callbacks-during-zoom-pan
+       commandzoom = [ 'wtemp = warning; warning off;set(gcbf, ''WindowButtonDownFcn'', [ ''zoom(gcbf); eegplot(''''zoom'''', gcbf, 1);'' ]);' ...
+                       'tmpg = get(gcbf, ''userdata'');' ...
+                       'warning(wtemp);'...
+                       'clear wtemp tmpg tmpstr; ']; 
+   end
     
   %uimenu('Parent',zm,'Label','Zoom time', 'callback', ...
   %             [ 'zoom(gcbf, ''xon'');' commandzoom ]);
@@ -1049,7 +1058,6 @@ u(22) = uicontrol('Parent',figh, ...
      'set(gcbf, ''windowbuttondownfcn'', tmpg.commandselect{1});' ...
      'set(gcbf, ''windowbuttonupfcn'', tmpg.commandselect{3});' ...
      'clear tmpg;' ]);
-      %'set(gcbf, ''windowbuttonmotionfcn'', tmpg.commandselect{2});' ... clean4release
       
   uimenu('Parent',figh,'Label', 'Help', 'callback', 'pophelp(''eegplot'');');
 
@@ -1246,7 +1254,7 @@ else
         switch lower(g.submean) % subtract the mean ?
          case 'on', 
           meandata = mean(g.data2(:,lowlim:highlim)');  
-          if any(isnan(meandata))                              % 6/16/104 Ramon: meandata by memdata clean4release
+          if any(isnan(meandata))                              
               meandata = nan_mean(g.data2(:,lowlim:highlim)');
           end;
          otherwise, meandata = zeros(1,g.chans);
@@ -1861,8 +1869,18 @@ else
       % reactivate zoom if 3 arguments
       % ------------------------------
       if exist('p2', 'var') == 1
-          set(gcbf, 'windowbuttondownfcn', [ 'zoom(gcbf,''down''); eegplot(''zoom'', gcbf, 1);' ]);
-          %set(gcbf, 'windowbuttonmotionfcn', g.commandselect{2}); clean4release
+          if verLessThan('matlab','8.4.0')
+              set(gcbf, 'windowbuttondownfcn', [ 'zoom(gcbf,''down''); eegplot(''zoom'', gcbf, 1);' ]);
+          else
+              % This is failing for us: http://undocumentedmatlab.com/blog/enabling-user-callbacks-during-zoom-pan
+              %               hManager = uigetmodemanager(gcbf);
+              %               [hManager.WindowListenerHandles.Enabled] = deal(false);
+              
+              % Temporary fix
+              wtemp = warning; warning off;
+              set(gcbf, 'WindowButtonDownFcn', [ 'zoom(gcbf); eegplot(''zoom'', gcbf, 1);' ]);
+              warning(wtemp);
+          end
       end;
 
 	case 'updateslider' % if zoom

@@ -200,7 +200,11 @@ function [ ori_vals, df, pvals ] = statcondfieldtrip( data, varargin );
             % -------------
             cfg.tail        = 1;
             cfg.correcttail = 'no';
-            cfg.statistic   = 'depsamplesF';
+            tmpP = fileparts(which('ft_freqstatistics'));
+            if exist(fullfile(tmpP, 'statfun', 'ft_statfun_depsamplesFmultivariate.m'))
+                 cfg.statistic   = 'depsamplesFunivariate';
+            else cfg.statistic   = 'depsamplesF';
+            end;
             [newdata design1 design2 design3] = makefieldtripdata(data, g.chandim, g.chanlocs);
             cfg.design      = [ design1; design3 ];
             cfg.uvar        = 2;
@@ -235,10 +239,9 @@ function [ ori_vals, df, pvals ] = statcondfieldtrip( data, varargin );
             % -------------
             cfg.tail        = 1;
             cfg.correcttail = 'no';
-            cfg.statistic   = 'anovan';
+            cfg.statistic   = 'depsamplesFmultivariate';
             [newdata design1 design2 design3] = makefieldtripdata(data, g.chandim, g.chanlocs);
             cfg.design      = [ design1; design2; design3 ];
-            cfg.effect      = 'X1*X2';
             cfg.ivar        = [1 2];
             cfg.uvar        = 3;
             stat            = ft_freqstatistics(cfg, newdata{:});
@@ -254,7 +257,7 @@ function [ ori_vals, df, pvals ] = statcondfieldtrip( data, varargin );
             % -------------
             cfg.tail        = 1;
             cfg.correcttail = 'no';
-            cfg.statistic   = 'anovan';
+            cfg.statistic   = 'indepsamplesF';
             cfg.clustercritval = 4.5416; % 95 percentile of n =10000; a = { rand(n,10) rand(n,10); rand(n,10) rand(n,10) }; [F df p ] = statcondfieldtrip(a, 'paired', 'off');
             [newdata design1 design2] = makefieldtripdata(data, g.chandim, g.chanlocs);
             if ~isempty(g.chanlocs)
@@ -346,7 +349,7 @@ function [newdata, design1, design2, design3] = makefieldtripdata(data, chandim,
             end;
             
           case 4,
-            newdata{i}.powspctrm = permute(data{i}, [4 1 2 3]);
+            newdata{i}.powspctrm = permute(data{i}, [4 3 1 2 ]); % Fixed dimension from [4 1 2 3]
         end;
         
         newdata{i}.label     = cell(1,size(newdata{i}.powspctrm,2));

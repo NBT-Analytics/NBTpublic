@@ -191,4 +191,9 @@ if ~exist('fig','var')
 end;
 
 com = [ 'pop_selectcomps(' inputname(1) ', ' vararg2str(compnum) ');' ];
+
+% FIXME SH: ADJUSTMENT FOR nbt_componentScroll
+p =  [1200 600 600 500];
+set(gcf, 'Position', p,'Units','normalized');
+
 return;		

@@ -65,6 +65,7 @@ EEG = [];
 command = '';
 
 if ~plugin_askinstall('Biosig', 'sopen'), return; end;
+biosigpathfirst;
     
 if nargin < 1
 	% ask user
@@ -157,6 +158,7 @@ if strcmpi(g.blockepoch, 'off')
 end;
     
 EEG = biosig2eeglab(dat, DAT, interval, g.channels, strcmpi(g.importevent, 'on'));
+clear DAT;
 
 if strcmpi(g.rmeventchan, 'on') & strcmpi(dat.TYPE, 'BDF') & isfield(dat, 'BDF')
     if size(EEG.data,1) >= dat.BDF.Status.Channel, 
@@ -213,6 +215,9 @@ if isempty(options)
 else
     command = sprintf('EEG = pop_biosig(''%s'', %s);', filename, vararg2str(options)); 
 end;    
+
+% Checking if str2double is on top of the path
+biosigpathlast;
 
 % ---------
 % read data

@@ -184,7 +184,7 @@ if ~isempty(EEG.chanlocs)
 end;    
 
 nchans = EEG.nbchan;
-fprintf('Re-referencing data\n');
+%fprintf('Re-referencing data\n');
 oldchanlocs = EEG.chanlocs;
 [EEG.data EEG.chanlocs refchan ] = reref(EEG.data, ref, optionscall{:});
 g = struct(optionscall{:});
